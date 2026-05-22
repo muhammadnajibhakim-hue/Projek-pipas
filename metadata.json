@@ -1,6 +1,6 @@
 {
   "name": "WebPreneur",
-  "description": "Jasa Pembuatan Website Profesional & Layanan Email Bisnis Modern",
+  "description": "WebPreneur oleh Kelompok 1 PIPAS - Integrasi Kewirausahaan digital dengan Sains Ekologi (IPA) & Pemberdayaan UMKM (IPS)",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

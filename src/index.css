@@ -4,13 +4,39 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Redefine indigo to Soft Studio (Kasual) Neutral Charcoal & Slate Palette */
+  --color-indigo-50: #F8F9FA;
+  --color-indigo-100: #F1F3F5;
+  --color-indigo-150: #E9ECEF;
+  --color-indigo-200: #DEE2E6;
+  --color-indigo-300: #CED4DA;
+  --color-indigo-400: #ADB5BD;
+  --color-indigo-500: #6C757D;
+  --color-indigo-600: #495057;
+  --color-indigo-700: #343A40;
+  --color-indigo-800: #2B2F33;
+  --color-indigo-900: #212529;
+  --color-indigo-950: #1A1D20;
+
+  /* Redefine emerald to Muted Organic Sage Green */
+  --color-emerald-50: #F4F5F2;
+  --color-emerald-100: #E6E8E1;
+  --color-emerald-500: #788574;
+  --color-emerald-600: #626E5F;
+  --color-emerald-700: #4E574B;
+}
+
+:root {
+  --theme-bg-main: #F8F9FA;
+  --theme-text-main: #212529;
 }
 
 /* Base resets & custom visual elements */
 body {
   font-family: var(--font-sans);
-  background-color: #fcfbfd;
-  color: #1e1b4b;
+  background-color: var(--theme-bg-main);
+  color: var(--theme-text-main);
   overflow-x: hidden;
 }
 

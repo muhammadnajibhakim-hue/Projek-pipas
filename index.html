@@ -1,13 +1,1328 @@
 <!doctype html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebPreneur</title>
+    <title>WebPreneur oleh Kelompok 1 PIPAS</title>
+    
+    <!-- Link index.css yang memuat font keluarga Plus Jakarta Sans & JetBrains Mono serta style Tailwind v4 -->
+    <link rel="stylesheet" href="/src/index.css" />
+    
+    <!-- Ambil script CDN Lucide Icons yang andal agar render ikon SVG otomatis berjalan -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="bg-indigo-50/15 text-indigo-950 min-h-screen antialiased selection:bg-indigo-100 selection:text-indigo-900">
+
+    <!-- === 1. NAVBAR NAVIGATION === -->
+    <header id="app-navbar" class="fixed top-0 inset-x-0 z-40 bg-white/80 backdrop-blur-md border-b border-indigo-50/50 py-5 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+          
+          <!-- Logo Brand Widget -->
+          <div class="flex items-center space-x-2.5 cursor-pointer group" onclick="scrollToSection('home')">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-indigo-700 flex items-center justify-center shadow-md shadow-indigo-150 transition-all group-hover:scale-105">
+              <i data-lucide="shield-check" class="w-5.5 h-5.5 text-white animate-pulse"></i>
+            </div>
+            <div>
+              <span class="font-extrabold text-indigo-950 text-base tracking-tight block">WebPreneur</span>
+              <span class="text-[9px] font-bold text-indigo-500 uppercase tracking-widest block">Kelompok 1 PIPAS</span>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation Menu -->
+          <nav class="hidden md:flex items-center space-x-6">
+            <button onclick="scrollToSection('home')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Beranda</button>
+            <button onclick="scrollToSection('layanan')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Layanan</button>
+            <button onclick="scrollToSection('portfolio')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Portofolio</button>
+            <button onclick="scrollToSection('tim-kelompok')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Kelompok 1</button>
+            <button onclick="scrollToSection('kalkulator')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Kalkulator</button>
+            <button onclick="scrollToSection('paket')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Harga</button>
+            <button onclick="scrollToSection('feedback-masukan')" class="text-xs sm:text-[13px] font-extrabold text-indigo-950 hover:text-indigo-600 transition-all cursor-pointer">Feedback</button>
+          </nav>
+
+          <!-- Action CTA Desktop -->
+          <div class="hidden md:block">
+            <button class="btn-trigger-modal inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-650 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all active:scale-98 cursor-pointer" data-package="custom" data-description="Halo, saya ingin berkonsultasi mengenai draf konsep rancangan digital kami...">
+              <i data-lucide="phone-call" class="w-4 h-4 mr-1.5"></i>
+              Hubungi Kami
+            </button>
+          </div>
+
+          <!-- Mobile Toggle Button Drawer -->
+          <button id="btn-mobile-menu" type="button" class="md:hidden p-2 text-indigo-950 hover:text-indigo-600 transition-colors cursor-pointer rounded-lg bg-slate-50 border border-slate-100">
+            <i data-lucide="menu" class="w-5.5 h-5.5"></i>
+          </button>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Drawer Mobile Menu List (Hidden by default) -->
+    <div id="mobile-menu-drawer" class="hidden fixed top-[73px] inset-x-0 z-30 bg-white border-b border-indigo-50 shadow-lg px-4 py-6 space-y-4 md:hidden">
+      <div class="flex flex-col space-y-3">
+        <button onclick="scrollToSection('home')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Beranda</button>
+        <button onclick="scrollToSection('layanan')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Layanan</button>
+        <button onclick="scrollToSection('portfolio')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Portofolio</button>
+        <button onclick="scrollToSection('tim-kelompok')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Kelompok 1</button>
+        <button onclick="scrollToSection('kalkulator')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Kalkulator</button>
+        <button onclick="scrollToSection('paket')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Harga</button>
+        <button onclick="scrollToSection('feedback-masukan')" class="drawer-link text-left px-3 py-2 text-xs font-bold text-indigo-950 hover:bg-slate-50 rounded-xl transition-all">Feedback</button>
+      </div>
+      <div class="border-t border-slate-100 pt-4">
+        <button class="btn-trigger-modal w-full inline-flex items-center justify-center px-4 py-3 bg-indigo-600 text-white rounded-xl font-bold text-xs shadow-md" data-package="custom">
+          <i data-lucide="phone-call" class="w-4 h-4 mr-1.5"></i>
+          Hubungi Kami
+        </button>
+      </div>
+    </div>
+
+
+    <!-- === 2. HERO LANDING SECTION === -->
+    <section id="home" class="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden bg-gradient-to-b from-[#FAF9FF] via-white to-white">
+      <!-- Glow effect elements background -->
+      <div class="absolute top-0 left-0 w-80 h-80 bg-indigo-150/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-indigo-100/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center max-w-4xl mx-auto space-y-6">
+          
+          <!-- Badge Academic PIPAS -->
+          <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-100/60 px-4 py-1.5 rounded-full shadow-sm text-indigo-700 tracking-wide">
+            <span class="inline-block w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+            <span class="text-[10px] sm:text-xs font-extrabold uppercase">KELOMPOK 1 PIPAS</span>
+          </div>
+
+          <!-- Display Pitch Title -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#110C33] tracking-tight leading-tight">
+            Jasa Pembuatan Website Profesional & <br class="hidden md:inline" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-500">Layanan Email Bisnis Modern</span>
+          </h1>
+
+          <!-- Secondary content paragraph -->
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[17px] max-w-2xl mx-auto">
+            Hadirkan kredibilitas bisnis modern kelas nasional bersama asisten pengembang Kelompok 1 PIPAS. Desain premium, andal, hemat beban kapasitas server, dan siap melambungkan penjualan UMKM lokal daerah Bogor dan sekitarnya.
+          </p>
+
+          <!-- Button Triggers -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <button onclick="scrollToSection('kalkulator')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-700 text-white rounded-xl font-bold text-xs sm:text-[13.5px] shadow-lg shadow-indigo-150 tracking-wide active:scale-98 transition-all cursor-pointer">
+              <i data-lucide="calculator" class="w-4 h-4 mr-1.5 text-yellow-300 animate-bounce"></i>
+              Simulasikan Harga Website (DP 10%)
+            </button>
+            <button onclick="scrollToSection('portfolio')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 bg-white hover:bg-slate-50 text-indigo-950 border border-indigo-100 rounded-xl font-extrabold text-xs sm:text-[13.5px] transition-all cursor-pointer">
+              <i data-lucide="laptop" class="w-4.5 h-4.5 mr-1 text-indigo-600"></i>
+              Eksplor Galeri Portfolio
+            </button>
+          </div>
+
+          <!-- Bullet Trust Row -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-12 text-left">
+            <div class="flex items-center space-x-2 bg-white/50 p-3 rounded-2xl border border-indigo-50/30">
+              <i data-lucide="shield-check" class="w-5.5 h-5.5 text-indigo-600"></i>
+              <span class="text-xs font-bold text-indigo-950">Aman & Proteksi Hak Cipta</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/50 p-3 rounded-2xl border border-indigo-50/30">
+              <i data-lucide="cpu" class="w-5.5 h-5.5 text-indigo-600"></i>
+              <span class="text-xs font-bold text-indigo-950">Green Tech Server Hemat Listrik</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/50 p-3 rounded-2xl border border-indigo-50/30">
+              <i data-lucide="landmark" class="w-5.5 h-5.5 text-indigo-600"></i>
+              <span class="text-xs font-bold text-indigo-950">Pemberdayaan Literasi UMKM</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-white/50 p-3 rounded-2xl border border-indigo-50/30">
+              <i data-lucide="kanban" class="w-5.5 h-5.5 text-indigo-600"></i>
+              <span class="text-xs font-bold text-indigo-950">Simulasi Invoice QRIS Lunas</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- === 3. LAYANAN & PILLARS === -->
+    <section id="layanan" class="py-20 bg-slate-50/45 border-y border-indigo-50/50 scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+            <span>Pilar Solusi Kewirausahaan</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#110c33] tracking-tight">
+            Produk Unggulan & Layanan Optimasi
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Kelompok 1 membagi keahlian ke dalam 6 spektrum utama guna memastikan bahwa website bisnis Anda tereksekusi dengan performa maksimal dan berstandar komersial premium.
+          </p>
+        </div>
+
+        <!-- Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Card 1 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="laptop" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">Jasa Pembuatan Web</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Mulai dari Landing Page hemat biaya promosi hingga Toko Online dengan ribuan katalog produk. Tampilan modern, navigasi responsif, dan layout berdaya pikat tinggi.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="mail" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">Setup Email Bisnis</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Perkuat branding usahamu dengan menggunakan domain kustom profesional (nama@perusahaan.com) terkonfigurasi andal, meningkatkan kepercayaan klien hingga 3x lipat!
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="cpu" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">Optimasi Kecepatan</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Struktur server hemat daya, kompresi aset gambar maksimal, dan pembersihan script lambat agar website Anda ter-render dalam hitungan milidetik secara instan.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="shield-check" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">SSL & Keamanan Web</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Jaminan enkripsi data pengunjung lewat instalasi HTTPS/SSL bersertifikat, bebas virus, malware-proof, dan menjamin proteksi data transaksi lunas 100%.
+            </p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="smartphone" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">Desain Responsif</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Tatanan visual yang otomatis menyesuaikan estetika pada layar HP Android, Apple iOS, tablet, notebook, maupun layar proyektor lebar guru pengampu di sekolah.
+            </p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-indigo-50/30 hover:shadow-lg transition-all duration-300 relative group">
+            <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-tr from-transparent to-slate-50 rounded-tr-3xl rounded-bl-full opacity-60"></div>
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <i data-lucide="phone" class="w-5.5 h-5.5"></i>
+            </div>
+            <h3 class="font-bold text-indigo-950 text-lg mt-6 mb-2">WhatsApp Auto-Chat</h3>
+            <p class="text-slate-500 text-xs sm:text-[13px] font-normal leading-relaxed">
+              Hubungkan pembeli langsung ke wa merchant lokal dengan isian formulir otomatis, membuat proses briefing, negosiasi, dan closing dagangan berjalan kilat.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 4. PORTFOLIO SHOWCASE (INTERACTIVE) === -->
+    <section id="portfolio" class="py-20 bg-white scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div class="max-w-2xl space-y-3 text-left">
+            <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+              <i data-lucide="laptop" class="w-4 h-4 text-indigo-600"></i>
+              <span>Galeri Hasil Karya Kreatif</span>
+            </span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#110c33] tracking-tight">
+              Kajian Studi Kasus & Portofolio Mitra UMKM
+            </h2>
+            <p class="text-slate-500 font-normal leading-relaxed text-xs sm:text-sm">
+              Situs-situs di bawah ini menunjukkan keandalan implementasi kami pada pelaku bisnis kecil yang tersebar di wilayah Jawa Barat.
+            </p>
+          </div>
+
+          <!-- Interactive Filters -->
+          <div class="flex flex-wrap gap-2 bg-slate-100/70 p-1.5 rounded-2xl border border-indigo-50/40 w-fit self-start">
+            <button 
+              type="button" 
+              class="portfolio-filter-btn px-4 py-2 rounded-xl text-xs sm:text-[13px] font-black tracking-wide transition-all cursor-pointer bg-white text-indigo-950 shadow-sm border border-indigo-100/40"
+              data-category="all"
+            >
+              Semua Proyek
+            </button>
+            <button 
+              type="button" 
+              class="portfolio-filter-btn px-4 py-2 rounded-xl text-xs sm:text-[13px] font-black tracking-wide transition-all cursor-pointer text-slate-500 hover:text-indigo-950"
+              data-category="landing"
+            >
+              Landing Page
+            </button>
+            <button 
+              type="button" 
+              class="portfolio-filter-btn px-4 py-2 rounded-xl text-xs sm:text-[13px] font-black tracking-wide transition-all cursor-pointer text-slate-500 hover:text-indigo-950"
+              data-category="business"
+            >
+              Profile Usaha
+            </button>
+            <button 
+              type="button" 
+              class="portfolio-filter-btn px-4 py-2 rounded-xl text-xs sm:text-[13px] font-black tracking-wide transition-all cursor-pointer text-slate-500 hover:text-indigo-950"
+              data-category="ecommerce"
+            >
+              Toko Toko Online
+            </button>
+          </div>
+        </div>
+
+        <!-- Portfolio grid container (Rendered dynamically by main.js) -->
+        <div id="portfolio-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Placeholder saat js diproses -->
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 5. TEAM PORTFOLIO: KELOMPOK 1 === -->
+    <section id="tim-kelompok" class="py-24 bg-slate-50/20 relative scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
+            <span>Kenali Anggota Pengembang</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#110c33] tracking-tight">
+            Tim Kelompok 1 PIPAS
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Inilah wajah di balik WebPreneur. Solidaritas pengerjaan digital dikombinasikan dengan semangat inovasi tiada henti!
+          </p>
+        </div>
+
+        <!-- Rendered members list (Filled by main.js) -->
+        <div id="team-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <!-- Dinamis render anggota tim -->
+        </div>
+
+        <!-- Trust panel banner -->
+        <div class="mt-16 bg-gradient-to-r from-indigo-950 to-indigo-900 text-white rounded-3xl p-6 sm:p-8 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+          
+          <div class="space-y-2 text-left relative z-10">
+            <span class="inline-flex items-center space-x-1 bg-white/10 px-2.5 py-1 rounded border border-white/15 text-[10px] font-black uppercase tracking-wider text-pink-300">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-pink-400 mr-1 shadow animate-pulse"></i>
+              <span>Komitmen Kelompok 1</span>
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black tracking-tight font-sans">Menjamin Inovasi Kreatif Terbaik</h3>
+            <p class="text-indigo-200 text-xs sm:text-sm font-normal leading-relaxed max-w-2xl font-sans">
+              Projek ini adalah pembuktian integrasi mata pelajaran kejuruan rekayasa teknologi dan modul sosial ilmiah. Dukung kami dengan memberikan ulasan di bagian feedback interaktif di bawah demi hasil nilai kelulusan maksimal!
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 6. INTERACTIVE CALCULATOR === -->
+    <section id="kalkulator" class="py-20 bg-slate-50/50 border-t border-b border-indigo-50/30 scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="calculator" class="w-4 h-4 text-indigo-600"></i>
+            <span>Kalkulator Proyek Interaktif</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-indigo-950 tracking-tight">
+            Estimasi Biaya & Pembayaran Uang Muka (DP) Anda
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Sesuaikan kebutuhan fitur website impian Anda. Kalkulator kami akan melakukan simulasi harga transparan lengkap dengan perhitungan DP ringan untuk mengamankan antrean pengembang.
+          </p>
+        </div>
+
+        <!-- Grid Calculator Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-stretch">
+          
+          <!-- Controller - Left Side (7 columns) -->
+          <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-indigo-50 shadow-sm flex flex-col justify-between">
+            <div class="space-y-6 text-left">
+              
+              <!-- Step 1: Website type -->
+              <div>
+                <label class="block text-[13px] font-bold text-indigo-950 uppercase tracking-wider mb-3">
+                  1. Pilih Jenis Website Utama
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <button
+                    type="button" id="calc-btn-landing"
+                    class="p-4 rounded-xl border border-slate-100 text-left transition-all cursor-pointer"
+                  >
+                    <span class="block font-bold text-indigo-950 text-sm">Landing Page</span>
+                    <span class="block text-xs text-slate-500 mt-1">Mulai IDR 999K</span>
+                    <span class="block text-[10px] text-indigo-600 font-semibold mt-1 bg-white inline-block px-1.5 py-0.5 rounded border border-indigo-50">1 Halaman Utama</span>
+                  </button>
+
+                  <button
+                    type="button" id="calc-btn-business"
+                    class="p-4 rounded-xl border border-indigo-600 bg-indigo-50/40 shadow-sm text-left transition-all cursor-pointer"
+                  >
+                    <span class="block font-bold text-indigo-950 text-sm">Company Profile</span>
+                    <span class="block text-xs text-slate-500 mt-1">Mulai IDR 1.999K</span>
+                    <span class="block text-[10px] text-indigo-600 font-semibold mt-1 bg-white inline-block px-1.5 py-0.5 rounded border border-indigo-50">5 Halaman Standard</span>
+                  </button>
+
+                  <button
+                    type="button" id="calc-btn-ecommerce"
+                    class="p-4 rounded-xl border border-slate-100 text-left transition-all cursor-pointer"
+                  >
+                    <span class="block font-bold text-indigo-950 text-sm">E-commerce</span>
+                    <span class="block text-xs text-slate-500 mt-1">Mulai IDR 2.999K</span>
+                    <span class="block text-[10px] text-indigo-600 font-semibold mt-1 bg-white inline-block px-1.5 py-0.5 rounded border border-indigo-50">10 Halaman Toko</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 2: Slider values pages -->
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <label class="block text-[13px] font-bold text-indigo-950 uppercase tracking-wider">
+                    2. Estimasi Jumlah Halaman
+                  </label>
+                  <span id="calc-pages-val" class="font-bold text-indigo-600 text-sm px-2.5 py-0.5 bg-indigo-50 rounded-full">
+                    5 Halaman
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="30"
+                  value="5"
+                  id="calc-slider-pages"
+                  class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                />
+                <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                  <span>1 Halaman</span>
+                  <span>15 Halaman</span>
+                  <span>30 Halaman</span>
+                </div>
+                <p id="calc-pages-warning" class="text-[11px] text-amber-500 mt-1.5 flex items-center font-medium hidden">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5 mr-1 text-amber-500 flex-shrink-0"></i>
+                  <span>Setiap penambahan halaman dikenakan tambahan biaya IDR 50.000 / halaman.</span>
+                </p>
+              </div>
+
+              <!-- Step 3: Addons selections -->
+              <div>
+                <label class="block text-[13px] font-bold text-indigo-950 uppercase tracking-wider mb-2.5">
+                  3. Integrasi & Fitur Tambahan Premium
+                </label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  
+                  <!-- Check 1 -->
+                  <label class="flex items-center p-3 rounded-xl border border-slate-100 hover:border-slate-200 cursor-pointer select-none bg-slate-50/30">
+                    <input
+                      type="checkbox"
+                      data-alias="paymentGateway"
+                      class="calc-addon-check w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 mr-3 cursor-pointer"
+                    />
+                    <div class="flex-1">
+                      <span class="block text-xs font-bold text-indigo-950">Payment Gateway QRIS/Bank</span>
+                      <span class="block text-[10px] text-slate-400">+ IDR 400.000</span>
+                    </div>
+                  </label>
+
+                  <!-- Check 2 -->
+                  <label class="flex items-center p-3 rounded-xl border border-slate-100 hover:border-slate-200 cursor-pointer select-none bg-slate-50/30">
+                    <input
+                      type="checkbox"
+                      data-alias="multilingual"
+                      class="calc-addon-check w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 mr-3 cursor-pointer"
+                    />
+                    <div class="flex-1">
+                      <span class="block text-xs font-bold text-indigo-950">Multi-Bahasa (English & Indo)</span>
+                      <span class="block text-[10px] text-slate-400">+ IDR 250.000</span>
+                    </div>
+                  </label>
+
+                  <!-- Check 3 -->
+                  <label class="flex items-center p-3 rounded-xl border border-slate-100 hover:border-slate-200 cursor-pointer select-none bg-slate-50/30">
+                    <input
+                      type="checkbox"
+                      data-alias="authSystem"
+                      class="calc-addon-check w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 mr-3 cursor-pointer"
+                    />
+                    <div class="flex-1">
+                      <span class="block text-xs font-bold text-indigo-950">Sistem Akun User (Login/Reg)</span>
+                      <span class="block text-[10px] text-slate-400">+ IDR 500.000</span>
+                    </div>
+                  </label>
+
+                  <!-- Check 4 -->
+                  <label class="flex items-center p-3 rounded-xl border border-slate-100 hover:border-slate-200 cursor-pointer select-none bg-slate-50/30">
+                    <input
+                      type="checkbox"
+                      data-alias="liveChat"
+                      class="calc-addon-check w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 mr-3 cursor-pointer"
+                    />
+                    <div class="flex-1">
+                      <span class="block text-xs font-bold text-indigo-950">WhatsApp Widget & Auto-Chat</span>
+                      <span class="block text-[10px] text-slate-400">+ IDR 100.000</span>
+                    </div>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- Step 4: Down payment options -->
+              <div>
+                <label class="block text-[13px] font-bold text-indigo-950 uppercase tracking-wider mb-2.5">
+                  4. Pilih Persentase Down Payment (DP)
+                </label>
+                <div class="flex space-x-4">
+                  <button
+                    type="button" id="calc-dp-10"
+                    class="flex-1 py-3 px-4 rounded-xl border border-indigo-600 bg-indigo-50/40 text-indigo-950 shadow-sm font-bold text-xs sm:text-sm transition-all cursor-pointer"
+                  >
+                    DP Ringan 10% <span class="block text-[10px] sm:text-xs font-normal mt-0.5">Uang muka hemat untuk memulai</span>
+                  </button>
+                  <button
+                    type="button" id="calc-dp-50"
+                    class="flex-1 py-3 px-4 rounded-xl border border-slate-100 text-slate-500 font-bold text-xs sm:text-sm transition-all cursor-pointer"
+                  >
+                    DP Standard 50% <span class="block text-[10px] sm:text-xs font-normal mt-0.5">Prosentase standard nasional</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Checkout receipt - Right Side (5 columns) -->
+          <div class="lg:col-span-5 bg-gradient-to-b from-[#100b38] to-[#0a0628] text-white p-6 sm:p-8 rounded-2xl flex flex-col justify-between border border-indigo-900/60 shadow-xl relative overflow-hidden text-left">
+            <!-- Background glows decoration -->
+            <div class="absolute top-0 right-0 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-indigo-600/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="relative">
+              <div class="flex justify-between items-start mb-6">
+                <div>
+                  <span class="text-[10px] text-indigo-300 font-extrabold uppercase tracking-widest px-2.5 py-1 bg-white/5 border border-white/10 rounded-full inline-block mb-2">Simulasi Keuangan</span>
+                  <h3 class="text-xl font-extrabold tracking-tight">Kwitansi Estimasi Bisnis</h3>
+                </div>
+                <i data-lucide="coins" class="w-8 h-8 text-indigo-400"></i>
+              </div>
+
+              <!-- Calculated item list details -->
+              <div class="space-y-3 mb-8 border-b border-white/10 pb-6 text-sm text-slate-300/90 font-medium">
+                <div class="flex justify-between">
+                  <span id="calc-out-base-label">Tipe Website (BUSINESS):</span>
+                  <span id="calc-out-base-cost" class="text-white">IDR 1.999.000</span>
+                </div>
+                
+                <div id="calc-out-extra-container" class="flex justify-between text-xs text-amber-300 hidden">
+                  <span id="calc-out-extra-label">Tambahan Halaman:</span>
+                  <span id="calc-out-extra-cost">0</span>
+                </div>
+
+                <div id="calc-out-addons-container" class="space-y-2">
+                  <!-- Dynamic content list of checked items -->
+                </div>
+              </div>
+
+              <!-- Main Totals Section -->
+              <div class="space-y-4 mb-6">
+                <div class="flex justify-between items-baseline">
+                  <span class="text-[12px] text-slate-405 font-bold uppercase tracking-wider">TOTAL INVESTASI:</span>
+                  <span id="calc-out-total" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">IDR 2.249.000</span>
+                </div>
+
+                <!-- Green Highlight container for down payment -->
+                <div class="bg-[#181347] border border-indigo-800/80 rounded-xl p-4 space-y-2">
+                  <div class="flex justify-between items-center text-xs text-slate-300">
+                    <span id="calc-out-dp-label" class="flex items-center">
+                      <i data-lucide="sparkles" class="w-4 h-4 text-amber-400 mr-1 animate-pulse"></i>
+                      Down Payment (10%):
+                    </span>
+                    <span class="font-mono bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/20">RINGAN</span>
+                  </div>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-[11px] text-slate-400 font-medium">Cukup bayar DP saat ini:</span>
+                    <span id="calc-out-dp-amount" class="text-xl sm:text-2xl font-extrabold text-[#25D366]">IDR 224.900</span>
+                  </div>
+                  <div class="text-[10px] text-[#25D366] text-right font-semibold">
+                    *Kunci antrean instan & sisa dilunasi setelah website selesai 100%!
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Modal Action Buttons CTA -->
+            <div class="space-y-3 relative z-10">
+              <button
+                type="button"
+                class="btn-trigger-modal w-full inline-flex items-center justify-center py-4 px-6 bg-indigo-500 hover:bg-indigo-600 active:scale-98 transition-all text-white font-extrabold rounded-xl text-[14px] cursor-pointer shadow-lg shadow-indigo-950/40"
+                data-package="kalkulator_auto"
+              >
+                <span>Bayar DP & Kunci Antrean</span>
+                <i data-lucide="arrow-right" class="w-4.5 h-4.5 ml-2"></i>
+              </button>
+
+              <div class="flex items-center justify-center space-x-2 text-[11px] text-slate-400">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+                <span class="font-medium">Transaksi dijamin 100% aman & bergaransi</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 7. PRICING SECTION === -->
+    <section id="paket" class="py-20 bg-white scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="coins" class="w-4 h-4 text-indigo-600"></i>
+            <span>Pilihan Paket Investasi Hemat</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-indigo-950 tracking-tight">
+            Transparansi Pilihan Paket Standard UMKM
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Sesuaikan dengan anggaran usaha Anda saat ini. Seluruh lisensi kode murni menjadi milik Anda penuh.
+          </p>
+        </div>
+
+        <!-- Cards layout -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+          
+          <!-- Paket 1 -->
+          <div class="bg-slate-50/40 rounded-3xl p-6 sm:p-8 border border-indigo-50 flex flex-col justify-between hover:shadow-lg transition-all">
+            <div class="space-y-6">
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Brosur Murah</span>
+                <h3 class="font-extrabold text-indigo-950 text-xl">Package Landing Page</h3>
+                <span class="text-2xl sm:text-3xl font-black text-indigo-950">IDR 999.000</span>
+              </div>
+              <ul class="space-y-3 text-xs sm:text-[13px] text-slate-600 font-medium">
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>1 Halaman Utama Premium</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Integrasi Tombol WhatsApp</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Optimasi SEO ramah Google</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Gratis Hosting & SSL 1 Tahun</li>
+              </ul>
+            </div>
+            <button class="btn-trigger-modal w-full mt-8 py-3 bg-white hover:bg-slate-50 text-indigo-950 border border-indigo-150 rounded-xl font-bold text-xs sm:text-sm cursor-pointer transition-all active:scale-98" data-package="Landing Page - IDR 999K" data-description="Halo saya tertarik memesan paket dasar Landing Page untuk brand saya...">
+              Pesan Landing Page (DP 10%)
+            </button>
+          </div>
+
+          <!-- Paket 2 -->
+          <div class="bg-indigo-950 text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden border border-indigo-800">
+            <span class="absolute top-4 right-4 bg-gradient-to-r from-yellow-500 to-amber-500 text-indigo-950 text-[9px] font-black uppercase px-2.5 py-1 rounded-full border border-yellow-200">Terlaris</span>
+            <div class="space-y-6 relative z-10">
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">Paling Populer</span>
+                <h3 class="font-extrabold text-white text-xl">Website Bisnis Standar</h3>
+                <span class="text-2xl sm:text-3xl font-black text-white">IDR 1.999.000</span>
+              </div>
+              <ul class="space-y-3 text-xs sm:text-[13px] text-indigo-200 font-medium">
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-yellow-400 mr-2 flex-shrink-0"></i>Maksimal 5 Halaman custom</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-yellow-400 mr-2 flex-shrink-0"></i>Setup 5 Akun Email Bisnis Resmi</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-yellow-400 mr-2 flex-shrink-0"></i>Admin Panel CMS + Panduan edit</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-yellow-400 mr-2 flex-shrink-0"></i>Laporan Traffic Pengunjung</li>
+              </ul>
+            </div>
+            <button class="btn-trigger-modal w-full mt-8 py-3 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white border border-indigo-400/35 rounded-xl font-bold text-xs sm:text-sm cursor-pointer transition-all active:scale-98 relative z-10" data-package="Website Bisnis - IDR 1.999K" data-description="Halo saya tertarik memesan paket Terlaris Website Bisnis Standar...">
+              Pesan Website Bisnis (DP 10%)
+            </button>
+          </div>
+
+          <!-- Paket 3 -->
+          <div class="bg-slate-50/40 rounded-3xl p-6 sm:p-8 border border-indigo-50 flex flex-col justify-between hover:shadow-lg transition-all">
+            <div class="space-y-6">
+              <div class="space-y-1.5">
+                <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Skala Dagang</span>
+                <h3 class="font-extrabold text-indigo-950 text-xl">Web E-Commerce Toko</h3>
+                <span class="text-2xl sm:text-3xl font-black text-indigo-950">IDR 2.999.000</span>
+              </div>
+              <ul class="space-y-3 text-xs sm:text-[13px] text-slate-600 font-medium">
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Katalog Produk Tanpa Batas</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Sistem Checkout Keranjang Belanja</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Kalkulator Ongkos Kirim Otomatis</li>
+                <li class="flex items-center"><i data-lucide="check" class="w-4.5 h-4.5 text-indigo-600 mr-2 flex-shrink-0"></i>Metode Bayar Instan QRIS & Bank</li>
+              </ul>
+            </div>
+            <button class="btn-trigger-modal w-full mt-8 py-3 bg-white hover:bg-slate-50 text-indigo-950 border border-indigo-150 rounded-xl font-bold text-xs sm:text-sm cursor-pointer transition-all active:scale-98" data-package="E-Commerce / Toko Online - IDR 2.999K" data-description="Halo saya tertarik memesan paket Toko Online E-Commerce lengkap dengan QRIS...">
+              Pesan E-Commerce (DP 10%)
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 8. INTERACTIVE FEEDBACK SECTION === -->
+    <section id="feedback-masukan" class="py-24 bg-white relative scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="message-square-code" class="w-4 h-4 text-indigo-600 mr-1"></i>
+            <span>Kolom Feedback & Rating Proyek</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#110c33] tracking-tight">
+            Bagikan Masukan & Dukung Penilaian Kami!
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Tulis umpan balik, saran akademis, atau komentar apresiasi Anda secara langsung di bawah ini. Sempurna untuk guru pengevaluasi PIPAS maupun rekan sesama pengembang!
+          </p>
+        </div>
+
+        <!-- Form and List Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl mx-auto items-start">
+          
+          <!-- Review Form - Left Side (5 columns) -->
+          <div class="lg:col-span-5 bg-slate-50 border border-indigo-50/70 p-6 sm:p-8 rounded-3xl space-y-6 text-left">
+            <div class="space-y-1">
+              <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest block">Interactive Form</span>
+              <h3 class="text-lg font-extrabold text-indigo-950">Isi Formulir Ulasan</h3>
+              <p class="text-xs text-slate-500">Komentar Anda akan segera di-render di daftar sisi kanan proyek.</p>
+            </div>
+
+            <form id="feedback-interactive-form" class="space-y-4">
+              
+              <!-- Input Name -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-indigo-950">Nama Lengkap</label>
+                <input
+                  type="text"
+                  required
+                  id="feedback-field-name"
+                  placeholder="Contoh: Bu Retno / Rendi X-PPLG"
+                  class="w-full px-4 py-2.5 bg-white border border-indigo-150/40 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-100"
+                />
+              </div>
+
+              <!-- Option Category -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-indigo-950">Peran / Kategori Pengunjung</label>
+                <select
+                  id="feedback-field-role"
+                  class="w-full px-4 py-2.5 bg-white border border-indigo-150/40 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-100"
+                >
+                  <option value="Siswa / Teman Sejawat">Siswa / Teman Sejawat</option>
+                  <option value="Guru Pengampu / Penilai">Guru Pengampu / Penilai</option>
+                  <option value="Pelaku UMKM Sekitar">Pelaku UMKM / Konsumen Sekitar</option>
+                  <option value="Pengunjung Umum">Pengunjung Umum</option>
+                </select>
+              </div>
+
+              <!-- Interactive rating stars -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-indigo-950 block">Berikan Penilaian Bintang</label>
+                <div class="flex items-center space-x-1.5 py-1">
+                  <button type="button" class="feedback-star-selector-btn cursor-pointer transition-transform hover:scale-110 focus:outline-none" data-star="1">
+                    <i data-lucide="star" class="w-6 h-6 text-amber-400 fill-amber-400"></i>
+                  </button>
+                  <button type="button" class="feedback-star-selector-btn cursor-pointer transition-transform hover:scale-110 focus:outline-none" data-star="2">
+                    <i data-lucide="star" class="w-6 h-6 text-amber-400 fill-amber-400"></i>
+                  </button>
+                  <button type="button" class="feedback-star-selector-btn cursor-pointer transition-transform hover:scale-110 focus:outline-none" data-star="3">
+                    <i data-lucide="star" class="w-6 h-6 text-amber-400 fill-amber-400"></i>
+                  </button>
+                  <button type="button" class="feedback-star-selector-btn cursor-pointer transition-transform hover:scale-110 focus:outline-none" data-star="4">
+                    <i data-lucide="star" class="w-6 h-6 text-amber-400 fill-amber-400"></i>
+                  </button>
+                  <button type="button" class="feedback-star-selector-btn cursor-pointer transition-transform hover:scale-110 focus:outline-none" data-star="5">
+                    <i data-lucide="star" class="w-6 h-6 text-amber-400 fill-amber-400"></i>
+                  </button>
+                  <span id="feedback-rating-numerical-label" class="text-xs text-slate-500 font-bold ml-2">(5 / 5)</span>
+                </div>
+              </div>
+
+              <!-- Text evaluation -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-indigo-950">Komentar / Catatan Evaluasi PIPAS</label>
+                <textarea
+                  id="feedback-field-comment"
+                  required
+                  rows="4"
+                  placeholder="Ketik ulasan Anda di sini... Sangat terbantu dengan inovasi ini!"
+                  class="w-full px-4 py-3 bg-white border border-indigo-150/40 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-100 resize-none text-slate-750"
+                ></textarea>
+              </div>
+
+              <!-- Error Box -->
+              <div id="feedback-error-block" class="flex items-center space-x-2 text-[11px] text-red-600 bg-red-50 border border-red-100 p-2.5 rounded-lg hidden">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
+                <span id="feedback-error-text">Wajib mengisi ulasan.</span>
+              </div>
+
+              <!-- Success Alert Box -->
+              <div id="feedback-success-block" class="flex items-center space-x-2 text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-100 p-3 rounded-lg hidden">
+                <i data-lucide="check-circle2" class="w-4.5 h-4.5 text-emerald-500 flex-shrink-0"></i>
+                <div class="">
+                  <span class="font-bold block text-emerald-800">Ulasan Berhasil Dipublikasikan!</span>
+                  <span class="text-[10px] text-emerald-600">Terima kasih atas kontribusi Anda mendukung Kelompok 1 PIPAS.</span>
+                </div>
+              </div>
+
+              <!-- Submit Trigger btn -->
+              <button
+                type="submit"
+                class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-850 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md cursor-pointer transition-all active:scale-98"
+              >
+                <i data-lucide="send" class="w-4 h-4 mr-1.5"></i>
+                Kirim Masukan Anda Sekarang
+              </button>
+
+            </form>
+          </div>
+
+          <!-- Reviews lists - Right Side (7 columns) -->
+          <div class="lg:col-span-7 space-y-4 max-h-[580px] overflow-y-auto pr-2 custom-scroll text-left">
+            <div class="flex items-center justify-between border-b border-indigo-50/50 pb-3">
+              <h4 id="feedback-total-count" class="font-extrabold text-sm text-indigo-950">
+                Semua Kontribusi Ulasan (3)
+              </h4>
+              <span class="text-[10px] text-slate-500 font-bold bg-indigo-50 border border-indigo-100/50 px-2.5 py-1 rounded">
+                ⚡ Live Reactivity
+              </span>
+            </div>
+
+            <!-- List rendering output -->
+            <div id="feedback-list-container" class="space-y-4">
+              <!-- rendered oleh main.js dari localStorage -->
+            </div>
+            
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 9. FAQ ACCORDION SECTION === -->
+    <section id="faq" class="py-20 bg-white border-t border-indigo-50/50 scroll-reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="inline-flex items-center space-x-1.5 bg-indigo-50 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-indigo-700 tracking-wide uppercase">
+            <i data-lucide="help-circle" class="w-4 h-4 text-indigo-600"></i>
+            <span>Daftar Bantuan FAQ</span>
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-indigo-950 tracking-tight">
+            Menjawab Keraguan Pertanyaan Umum
+          </h2>
+          <p class="text-slate-500 font-normal leading-relaxed text-[15px] sm:text-[16px]">
+            Kami telah mengumpulkan daftar solusi pertanyaan yang kerap diajukan seputar jasa perancangan digital WebPreneur Kelompok 1.
+          </p>
+        </div>
+
+        <!-- Rendered Accordions grid (by main.js) -->
+        <div id="faq-accordion-container" class="max-w-3xl mx-auto space-y-4 text-left">
+          <!-- Accordion bars rendered automatically -->
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- === 10. MODAL DIALOG CONTAINER === -->
+    <div id="contact-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+      <!-- Overlay Backdrop -->
+      <div class="fixed inset-0 bg-[#060413]/65 backdrop-blur-sm transition-opacity" onclick="closeBriefingModal()"></div>
+
+      <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+        <div class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-indigo-100 flex flex-col">
+          
+          <!-- Outer close button -->
+          <button
+            onclick="closeBriefingModal()"
+            type="button"
+            class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 focus:outline-none p-1.5 bg-slate-50 hover:bg-slate-100 rounded-full cursor-pointer transition-colors"
+          >
+            <i data-lucide="x" class="w-4.5 h-4.5"></i>
+          </button>
+
+          <!-- SCREEN A: INPUT CONTACT FORM -->
+          <form id="modal-brief-form" class="p-6 sm:p-8 space-y-5">
+            <div class="space-y-1">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-indigo-950 flex items-center space-x-2">
+                <i data-lucide="sparkles" class="w-5 h-5 text-indigo-600 animate-pulse fill-indigo-200"></i>
+                <span>Kirim Pengajuan Brief</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 font-normal">
+                Masukkan informasi bisnismu di bawah ini secara lengkap. Validitas data akan divalidasi sistem agar antrean prioritas tercatat dengan benar.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Full Name -->
+              <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider flex justify-between">
+                  <span>Nama Lengkap <span class="text-rose-500">*</span></span>
+                  <span id="val-status-name" class="text-slate-400 font-semibold normal-case">Sedang mengetik...</span>
+                </label>
+                <div class="relative">
+                  <input
+                    type="text"
+                    required
+                    id="modal-field-name"
+                    placeholder="Contoh: Muhammad Najib"
+                    class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium transition-all"
+                  />
+                  <div class="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="user" id="icon-val-name-neutral" class="w-4 h-4"></i>
+                    <i data-lucide="check-circle-2" id="icon-val-name-success" class="w-4.5 h-4.5 text-emerald-600 hidden"></i>
+                    <i data-lucide="alert-circle" id="icon-val-name-error" class="w-4.5 h-4.5 text-rose-500 hidden"></i>
+                  </div>
+                </div>
+                <p id="val-err-name" class="text-[11px] text-rose-500 font-bold hidden"></p>
+                <p class="text-[10px] text-slate-400 font-medium">Bukan berupa angka/simbol, minimal mengandung 3 huruf alfabet murni.</p>
+              </div>
+
+              <!-- Contact detail row grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider flex justify-between">
+                    <span>Email Aktif <span class="text-rose-500">*</span></span>
+                    <span id="val-status-email" class="text-slate-400 font-semibold normal-case">Wajib</span>
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="email"
+                      required
+                      id="modal-field-email"
+                      placeholder="najib@perusahaan.com"
+                      class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium transition-all"
+                    />
+                    <div class="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-slate-400">
+                      <i data-lucide="mail" id="icon-val-email-neutral" class="w-4 h-4"></i>
+                      <i data-lucide="check-circle-2" id="icon-val-email-success" class="w-4.5 h-4.5 text-emerald-600 hidden"></i>
+                      <i data-lucide="alert-circle" id="icon-val-email-error" class="w-4.5 h-4.5 text-rose-500 hidden"></i>
+                    </div>
+                  </div>
+                  <p id="val-err-email" class="text-[11px] text-rose-500 font-bold hidden"></p>
+                </div>
+                
+                <div class="space-y-1">
+                  <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider flex justify-between">
+                    <span>No. WhatsApp <span class="text-rose-500">*</span></span>
+                    <span id="val-status-phone" class="text-slate-400 font-semibold normal-case">Wajib</span>
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="tel"
+                      required
+                      id="modal-field-phone"
+                      placeholder="08xxxxxxxxxx atau 62xxxx"
+                      class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium transition-all"
+                    />
+                    <div class="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-slate-400">
+                      <i data-lucide="phone" id="icon-val-phone-neutral" class="w-4 h-4"></i>
+                      <i data-lucide="check-circle-2" id="icon-val-phone-success" class="w-4.5 h-4.5 text-emerald-600 hidden"></i>
+                      <i data-lucide="alert-circle" id="icon-val-phone-error" class="w-4.5 h-4.5 text-rose-500 hidden"></i>
+                    </div>
+                  </div>
+                  <p id="val-err-phone" class="text-[11px] text-rose-500 font-bold hidden"></p>
+                </div>
+              </div>
+
+              <!-- Brand Name -->
+              <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider flex justify-between">
+                  <span>Nama Perusahaan / Merek Usaha</span>
+                  <span class="text-slate-450 normal-case">(Opsional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="modal-field-company"
+                  placeholder="Contoh: Prima Coffee Shop"
+                  class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium"
+                />
+              </div>
+
+              <!-- Option list choices -->
+              <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider">
+                  Paket Website yang Dipilih
+                </label>
+                <select
+                  id="modal-field-package"
+                  class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium"
+                >
+                  <option value="Landing Page">Landing Page - IDR 999K</option>
+                  <option value="Website Bisnis">Website Bisnis - IDR 1.999K</option>
+                  <option value="E-Commerce / Toko Online">E-Commerce / Toko Online - IDR 2.999K</option>
+                  <option value="Layanan Email Bisnis">Layanan Email Bisnis (Pilar Kiri)</option>
+                  <option value="AI Email Marketing Reach">AI Email Marketing Reach (Pilar Kanan)</option>
+                  <option value="custom">Belum Yakin (Konsultasikan Terlebih Dahulu)</option>
+                </select>
+              </div>
+
+              <!-- Description input -->
+              <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-indigo-950 uppercase tracking-wider flex justify-between">
+                  <span>Catatan Briefing / Kebutuhan Tambahan <span class="text-rose-500">*</span></span>
+                  <span id="val-status-desc" class="text-slate-400 font-semibold normal-case">Min. 25 karakter</span>
+                </label>
+                <div class="relative">
+                  <textarea
+                    id="modal-field-desc"
+                    rows="3"
+                    required
+                    placeholder="Ceritakan singkat tujuan websitemu kriteria desain, target pasar usahamu, atau referensi website pembanding..."
+                    class="w-full px-4 py-3 rounded-xl border border-indigo-100/80 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 focus:outline-none bg-slate-50/50 text-[14px] font-medium resize-none transition-all"
+                  ></textarea>
+                </div>
+                <div class="flex justify-between items-center text-[11px] font-medium mt-1">
+                  <p id="val-err-desc" class="text-rose-500 font-bold hidden"></p>
+                  <span id="val-counter-desc" class="text-slate-400 ml-auto font-mono">0 / 25 karakter</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Submit trigger actions -->
+            <div class="pt-2 flex flex-col space-y-3">
+              <button
+                type="submit"
+                id="modal-btn-submit"
+                class="w-full inline-flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-700 text-white rounded-xl font-bold text-[14.5px] cursor-pointer shadow-md shadow-indigo-150 transition-all active:scale-98 disabled:opacity-60"
+              >
+                <!-- Spinner icon -->
+                <i data-lucide="loader-2" id="modal-btn-submit-spinner" class="w-5 h-5 mr-2 animate-spin hidden"></i>
+                <span id="modal-btn-submit-text">Kirim Formulir Briefing</span>
+              </button>
+              <div class="text-center">
+                <span class="text-[11px] text-slate-400 font-medium">
+                  🔒 Seluruh data validasi diverifikasi lokal demi keamanan komunikasi antrean.
+                </span>
+              </div>
+            </div>
+          </form>
+
+          <!-- SCREEN B: CONFIRMATION SCREEN & REAL QRIS SIMULATION -->
+          <div id="modal-confirmation-view" class="p-6 sm:p-8 space-y-6 hidden flex flex-col text-left">
+            
+            <!-- Header confirmation text -->
+            <div class="text-center space-y-1">
+              <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                <i data-lucide="check-circle-2" class="w-7 h-7 fill-emerald-100 font-bold text-emerald-600"></i>
+              </div>
+              <h3 class="text-xl font-extrabold text-indigo-950 mt-3 font-sans">Brief Terkirim & Antrean Dicatat!</h3>
+              <p class="text-xs text-slate-500 max-w-sm mx-auto font-sans leading-relaxed">
+                Terima kasih <span id="confirm-client-name" class="font-bold text-indigo-900">Muhammad Najib</span>. Tim WebPreneur akan segera berdiskusi dengan Anda lewat WhatsApp.
+              </p>
+            </div>
+
+            <!-- DYNAMIC QRIS SCREEN HOLDER -->
+            <div id="confirm-qris-scanning-card" class="bg-slate-50 border border-indigo-100/70 rounded-2xl p-4 sm:p-5 text-center space-y-4 relative overflow-hidden">
+              
+              <!-- QRIS Header -->
+              <div class="flex items-center justify-between border-b border-indigo-50 pb-3">
+                <div class="text-left">
+                  <span class="text-[9px] font-extrabold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 uppercase tracking-widest">Metode Instan</span>
+                  <h4 id="confirm-pkg-label" class="text-xs font-black text-indigo-950 mt-1">Website Bisnis</h4>
+                </div>
+                <div class="text-right">
+                  <span id="confirm-pkg-pct" class="text-[10px] text-slate-400 font-bold block">Down Payment (DP 10%)</span>
+                  <p id="confirm-pkg-total-strike" class="text-xs font-bold text-slate-450 line-through">IDR 1.999.000</p>
+                </div>
+              </div>
+
+              <!-- Price Tag highlight -->
+              <div class="space-y-1">
+                <span class="text-[11px] text-slate-500 font-medium block">Scan QRIS untuk Kunci Slot Antrean Developer:</span>
+                <p id="confirm-pkg-dp-amount" class="text-2xl font-black text-indigo-950 tracking-tight">IDR 199.900</p>
+              </div>
+
+              <!-- SVG Drawn QRIS image mock -->
+              <div class="w-44 h-44 bg-white border border-slate-150 rounded-xl p-3 mx-auto shadow-sm flex flex-col justify-between items-center relative">
+                <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Red header tags -->
+                  <rect x="0" y="0" width="100" height="12" rx="2" fill="#E62129" />
+                  <text x="50" y="8" fill="white" fontSize="6px" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">QRIS - WEBPRENEUR</text>
+                  
+                  <!-- Calibration Targets QR code boxes -->
+                  <rect x="15" y="20" width="16" height="16" stroke="black" strokeWidth="4" />
+                  <rect x="21" y="26" width="4" height="4" fill="black" />
+                  
+                  <rect x="69" y="20" width="16" height="16" stroke="black" strokeWidth="4" />
+                  <rect x="75" y="26" width="4" height="4" fill="black" />
+                  
+                  <rect x="15" y="74" width="16" height="16" stroke="black" strokeWidth="4" />
+                  <rect x="21" y="80" width="4" height="4" fill="black" />
+
+                  <!-- Center Branding WP tag -->
+                  <rect x="42" y="47" width="16" height="16" rx="2" fill="#1E1B4B" />
+                  <text x="50" y="57" fill="#818CF8" fontSize="6px" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">WP</text>
+
+                  <!-- Simulated pixel dots -->
+                  <rect x="40" y="20" width="4" height="4" fill="black" />
+                  <rect x="48" y="24" width="8" height="4" fill="black" />
+                  <rect x="36" y="32" width="4" height="4" fill="black" />
+                  <rect x="44" y="36" width="12" height="4" fill="black" />
+                  <rect x="60" y="20" width="4" height="8" fill="black" />
+                  
+                  <rect x="20" y="44" width="8" height="4" fill="black" />
+                  <rect x="16" y="52" width="4" height="12" fill="black" />
+                  <rect x="28" y="56" width="8" height="4" fill="black" />
+                  
+                  <rect x="68" y="44" width="12" height="4" fill="black" />
+                  <rect x="76" y="52" width="4" height="8" fill="black" />
+                  <rect x="64" y="60" width="8" height="4" fill="black" />
+                  <rect x="80" y="64" width="4" height="12" fill="black" />
+
+                  <rect x="40" y="72" width="12" height="4" fill="black" />
+                  <rect x="36" y="80" width="4" height="8" fill="black" />
+                  <rect x="48" y="84" width="12" height="4" fill="black" />
+                  
+                  <rect x="68" y="76" width="4" height="12" fill="black" />
+                  <rect x="76" y="84" width="8" height="4" fill="black" />
+                </svg>
+
+                <!-- Processing absolute masking block overlay -->
+                <div id="qris-status-loading-mask" class="absolute inset-0 bg-white/95 flex flex-col items-center justify-center hidden pointer-events-none">
+                  <i data-lucide="loader-2" class="w-8 h-8 text-indigo-600 animate-spin"></i>
+                  <span class="text-[10px] text-slate-500 font-bold mt-2">Memproses Transaksi...</span>
+                </div>
+              </div>
+
+              <!-- Scanning help note -->
+              <p class="text-[10px] sm:text-[11px] text-slate-500 leading-normal max-w-xs mx-auto">
+                Mendukung scan QRIS real-time dari seluruh Bank & Aplikasi Fintech Indonesia (GoPay, OVO, ShopeePay, DANA, LinkAja, M-Banking BCA, Jago, dll).
+              </p>
+
+              <!-- Interactive Simulator button lunas mock -->
+              <button
+                type="button" id="confirm-btn-sim-pay"
+                class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-bold text-[11px] border border-indigo-100 cursor-pointer transition-all active:scale-98"
+              >
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 mr-1.5 text-indigo-500 animate-pulse"></i>
+                KLIK DISINI UNTUK SIMULASI LUNAS (MOCKUP)
+              </button>
+
+              <!-- Status code row waiting -->
+              <div class="flex items-center justify-center space-x-2 text-[10px] font-bold text-amber-600 animate-pulse pt-2.5 border-t border-slate-100">
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span>Menunggu Pemindaian QRIS... (Berjalan 14:59)</span>
+              </div>
+
+            </div>
+
+            <!-- PAID SUCCESS DIGITAL INVOICE RECEIPT SCREEN -->
+            <div id="confirm-qris-paid-card" class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-5 text-center space-y-4 relative overflow-hidden hidden">
+              <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl"></div>
+              
+              <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
+                <i data-lucide="check-circle-2" class="w-6 h-6 fill-white text-emerald-700"></i>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/60 px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">DP Lunas Verifikasi</span>
+                <h4 class="text-base font-black text-indigo-950 font-sans">Kwitansi Reservasi Digital</h4>
+              </div>
+
+              <!-- Struk detail table row -->
+              <div class="bg-white/95 border border-emerald-100 rounded-xl p-3.5 text-left space-y-2 divide-y divide-slate-100 text-[11.5px] text-slate-600">
+                <div class="flex justify-between pb-1.5 font-sans">
+                  <span>Status Pembayaran:</span>
+                  <span class="text-emerald-600 font-bold uppercase pb-0.5 block">LUNAS TERKONFIRMASI 🧾</span>
+                </div>
+                <div class="flex justify-between py-1.5 font-sans">
+                  <span>Waktu Pembayaran:</span>
+                  <span id="receipt-date" class="font-mono text-slate-800">22 Mei 2026</span>
+                </div>
+                <div class="flex justify-between py-1.5 font-sans">
+                  <span>No. Transaksi ID:</span>
+                  <span id="receipt-trx-id" class="font-mono text-indigo-950 font-semibold uppercase">TRX-WP-49102</span>
+                </div>
+                <div class="flex justify-between pt-1.5 font-sans">
+                  <span>Jumlah DP Terbayar:</span>
+                  <span id="receipt-dp-amount" class="text-emerald-600 font-black">IDR 199.900</span>
+                </div>
+              </div>
+
+              <div class="text-[10px] sm:text-xs text-emerald-800 bg-emerald-100/30 px-3 py-2.5 rounded-lg text-left leading-relaxed font-semibold">
+                🎉 Selamat! Prioritas slot pengerjaan Anda telah dikonfirmasi dan terkunci secara instan. Desainer kami akan menyiapkan layout wireframe draf pertama untuk direview bersama dalam 1x24 jam.
+              </div>
+            </div>
+
+            <!-- Priority metadata informational box -->
+            <div class="bg-slate-50 border border-slate-150/40 rounded-xl p-3.5 text-left divide-y divide-slate-100 space-y-1.5 text-[11px] text-slate-500 font-semibold font-mono">
+              <div class="flex items-center justify-between pb-1.5">
+                <span>Pengiriman Form:</span>
+                <span class="text-emerald-600 uppercase font-black tracking-wide">✓ Sukses Berhasil</span>
+              </div>
+              <div class="flex items-center justify-between py-1.5">
+                <span>Antrean Proyek:</span>
+                <span class="text-indigo-600">Fast-Track Priority (Sangat Tinggi)</span>
+              </div>
+              <div class="flex items-center justify-between pt-1.5">
+                <span>Ditinjau oleh Tim:</span>
+                <span class="text-indigo-950 font-black">Kelompok 1 PIPAS</span>
+              </div>
+            </div>
+
+            <!-- Sub actions anchors to WA and Email -->
+            <div class="pt-2 flex flex-col space-y-2.5">
+              <a
+                id="confirm-wa-anchor"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center px-6 py-3.5 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl font-bold text-[14px] cursor-pointer shadow-md shadow-emerald-100 transition-all active:scale-98"
+              >
+                <i data-lucide="phone-call" class="w-4 h-4 mr-2"></i>
+                Hubungi di WhatsApp (0895-0232-6163)
+              </a>
+
+              <a
+                id="confirm-email-anchor"
+                href="#"
+                class="w-full inline-flex items-center justify-center px-6 py-3 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-100 rounded-xl font-bold text-[13px] cursor-pointer transition-all active:scale-98"
+              >
+                <i data-lucide="mail" class="w-4.5 h-4.5 mr-2 text-slate-400"></i>
+                Kirim Notifikasi via Email Resmi
+              </a>
+
+              <button
+                onclick="closeBriefingModal()"
+                type="button"
+                class="w-full py-2.5 rounded-xl text-slate-500 hover:text-slate-800 text-[12px] font-bold hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                Selesai & Tutup Jendela
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- === 11. FOOTER SECTION === -->
+    <footer class="bg-indigo-950 text-indigo-200 py-16 border-t border-indigo-900/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-left">
+          
+          <!-- Column 1 logo info -->
+          <div class="md:col-span-2 space-y-5">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-indigo-950/20">
+                <i data-lucide="shield-check" class="w-5.5 h-5.5 text-white"></i>
+              </div>
+              <span class="font-extrabold text-white text-lg tracking-tight">WebPreneur</span>
+            </div>
+            
+            <p class="text-sm text-indigo-300 max-w-sm font-normal leading-relaxed">
+              Jasa pembuatan website premium berkualitas tinggi, andal, dan siap memaksimalkan potensi digital serta memajukan daya saing bisnis UMKM lokal secara optimal.
+            </p>
+            
+            <div class="flex items-center space-x-2 text-[10.5px] sm:text-xs text-indigo-300 bg-indigo-900/40 p-3 rounded-xl border border-indigo-800/40 w-fit font-bold">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <span>Proteksi 100% Hak Cipta & Nilai Akademis Sempurna Terjamin</span>
+            </div>
+          </div>
+
+          <!-- Column 2 footer links navigation -->
+          <div class="space-y-4">
+            <h4 class="text-xs font-black text-white uppercase tracking-wider">Navigasi Cepat</h4>
+            <ul class="space-y-2.5 text-xs sm:text-sm font-medium">
+              <li>
+                <button onclick="scrollToSection('home')" class="hover:text-white transition-colors cursor-pointer text-left focus:outline-none">
+                  Halaman Utama
+                </button>
+              </li>
+              <li>
+                <button onclick="scrollToSection('layanan')" class="hover:text-white transition-colors cursor-pointer text-left focus:outline-none">
+                  Layanan & Optimasi
+                </button>
+              </li>
+              <li>
+                <button onclick="scrollToSection('tim-kelompok')" class="hover:text-white transition-colors cursor-pointer text-left focus:outline-none">
+                  Profil Anggota Kelompok 1
+                </button>
+              </li>
+              <li>
+                <button onclick="scrollToSection('kalkulator')" class="hover:text-white transition-colors cursor-pointer text-left focus:outline-none">
+                  Kalkulator Simulasi DP
+                </button>
+              </li>
+              <li>
+                <button onclick="scrollToSection('feedback-masukan')" class="hover:text-white transition-colors cursor-pointer text-left focus:outline-none">
+                  Kolom Ulasan & Rating
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 3 contacts -->
+          <div class="space-y-4">
+            <h4 class="text-xs font-black text-white uppercase tracking-wider">Alamat & Akademik</h4>
+            <div class="space-y-3 text-xs sm:text-sm font-medium text-indigo-300">
+              <p class="leading-relaxed">
+                📍 Jl. Raya Wangun No.21, RT.01/RW.06, Sindangsari, Kec. Bogor Tim., Kota Bogor, Jawa Barat 16146
+              </p>
+              <div class="pt-2 text-[11px] block text-indigo-200">
+                Email: <span class="font-bold underline">kelompok1pipas@gmail.com</span> <br />
+                WhatsApp: <span class="font-bold underline">0895-0232-6163 (Najib)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Base copy footer -->
+        <div class="mt-12 pt-8 border-t border-indigo-900/40 text-center text-xs text-indigo-400 font-medium flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© 2026 WebPreneur Tim Kelompok 1 PIPAS. Hak Cipta Dilindungi Undang-Undang.</p>
+          <div class="flex space-x-4">
+            <span class="bg-indigo-900/30 px-3 py-1 rounded-md border border-indigo-850">Kelompok 1 PIPAS</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+
+    <!-- Main JS script loader -->
+    <script type="module" src="/src/main.js"></script>
+    
   </body>
 </html>
-
