@@ -1,0 +1,6 @@
+{
+  "name": "WebPreneur",
+  "description": "Jasa Pembuatan Website Profesional & Layanan Email Bisnis Modern",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
